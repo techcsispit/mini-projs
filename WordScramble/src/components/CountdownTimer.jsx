@@ -17,16 +17,22 @@ const CountdownTimer = ({ remainingTime, setRemainingTime }) => {
 
   useEffect(() => {
     if (remainingTime === 0) {
-      setRemainingTime(TIMER);
+      setTimeout(() => {
+        setRemainingTime(TIMER);
+      }, 5000); // pause for 5 seconds
     }
   }, [remainingTime, setRemainingTime]);
 
   return (
-    <div>
-      <strong style={{ color: "red" }}>
-        {remainingTime} seconds remaining
-      </strong>
-    </div>
+    <>
+      {remainingTime > 0 && (
+        <div>
+          <strong style={{ color: "red" }}>
+            {remainingTime} seconds remaining
+          </strong>
+        </div>
+      )}
+    </>
   );
 };
 
