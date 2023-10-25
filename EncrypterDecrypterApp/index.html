@@ -9,6 +9,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            
         }
         .type-method-container {
             display: flex;
@@ -28,7 +29,7 @@
         <h1>Encrypter-Decrypter App</h1>
         <div class="input-container">
             <label for="input">Input:</label>
-            <textarea id="input"></textarea>
+            <textarea id="input" oninput="convert(document.getElementById('type').value, document.getElementById('method').value)"></textarea>
         </div>
         <div class="output-container">
             <label for="output">Output:</label>
@@ -38,15 +39,15 @@
             <div class="type-method-container">
                 <div class="type-container">
                     <label>Type:</label>
-                    <select id="type">
+                    <select id="type" onchange="convert(this.value, document.getElementById('method').value)">
                         <option value="encode">Encode</option>
                         <option value="decode">Decode</option>
                     </select>
                 </div>
                 <div class="method-container">
                     <label>Method:</label>
-                    <select id="method">
-                        <option value="url">URL</option>
+                    <select id="method" onchange="convert(document.getElementById('type').value, this.value)">
+                        <option value="uri">URI</option>
                         <option value="base64">Base64</option>
                         <option value="html">HTML</option>
                         <option value="unicode">Unicode</option>
@@ -55,9 +56,15 @@
                     </select>
                 </div>
             </div>
-            <button onclick="convert(document.getElementById('type').value, document.getElementById('method').value)">Convert</button>
         </div>
     </div>
+    <script>
+        if (document.getElementById('input') !== null) {
+            document.getElementById('input').addEventListener('input', function() {
+                convert(document.getElementById('type').value, document.getElementById('method').value);
+            });
+        }
+    </script>
     <script src="scripts.js"></script>
 </body>
 </html>

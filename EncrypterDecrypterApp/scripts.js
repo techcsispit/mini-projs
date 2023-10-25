@@ -5,7 +5,7 @@ function convert(type, method)
 
     try {
         switch (method) {
-            case 'url':
+            case 'uri':
                 output = (type === 'encode') ? encodeURIComponent(input) : decodeURIComponent(input);
                 break;
             case 'base64':
@@ -36,6 +36,6 @@ function convert(type, method)
         document.getElementById('output').value = output;
     } catch (error) {
         console.error('An error occurred:', error);
-        document.getElementById('output').value = 'An error occurred. Please check the console for more details.';
+        document.getElementById('output').value = 'Something broke.';
     }
 }
