@@ -11,6 +11,8 @@ function App() {
   const [answer, setAnswer] = useState("");
   const [isWrong, setIsWrong] = useState(false);
   const [remainingTime, setRemainingTime] = useState(TIMER);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [isAnsweredCorrectly, setIsAnsweredCorrectly] = useState(false); // new state
 
   const question = useMemo(() => {
     const fq = words?.[counter] || null;
@@ -28,20 +30,41 @@ function App() {
       setIsWrong(false);
       setAnswer("");
       setScore(score + POINT);
-      setCounter(counter + 1);
+      setIsAnsweredCorrectly(true);
     } else {
       setIsWrong(true);
     }
   };
 
-  useEffect(() => {
-    if (counter <= totalQuestion - 1 && remainingTime === 0) {
-      setCounter(counter + 1);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
     }
-  }, [counter, totalQuestion, remainingTime]);
+  };
+
+  useEffect(() => {
+    if (isAnsweredCorrectly) {
+      setShowAnswer(false);
+      setRemainingTime(TIMER);
+      setIsAnsweredCorrectly(false);
+      setCounter(counter + 1);
+      
+      
+    } else if (counter <= totalQuestion - 1 && remainingTime === 0) {
+      setShowAnswer(true);
+      setTimeout(() => {
+        setShowAnswer(false);
+        setRemainingTime(TIMER);
+        setCounter(counter + 1);
+      }, 5000);
+    }
+  }, [counter, totalQuestion, remainingTime, isAnsweredCorrectly]);
 
   return (
     <div className="word-scramble">
+      <div className="score-container">
+        <h2>Score: {score}</h2>
+      </div>
       {question ? (
         <>
           <small>Guess the word in</small>
@@ -57,13 +80,22 @@ function App() {
                 type="text"
                 id="answer"
                 onChange={(e) => setAnswer(e.target.value)}
+                onKeyDown={handleKeyDown}
                 value={answer}
                 className="answer-input"
               />
               {isWrong && <small>Try again!</small>}
-              <button type="submit" disabled={buttonDisabled}>
-                Submit
-              </button>
+              {showAnswer && !isAnsweredCorrectly && (
+                <div>
+                  <small>The correct answer is:</small>
+                  <p>{words?.[counter]?.word}</p>
+                </div>
+              )}
+              {!showAnswer && !isAnsweredCorrectly && (
+                <button type="submit" disabled={buttonDisabled}>
+                  Submit
+                </button>
+              )}
             </form>
           </div>
         </>
@@ -76,6 +108,7 @@ function App() {
             onClick={() => {
               setCounter(0);
               setRemainingTime(TIMER);
+              setShowAnswer(false);
             }}
           >
             Try Again!
