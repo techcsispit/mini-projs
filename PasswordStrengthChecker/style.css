@@ -4,6 +4,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 50px;
 }
 
 body{
@@ -26,6 +27,7 @@ body{
     gap: 10px;
     padding-bottom: 70px;
     -webkit-box-reflect: below 1px linear-gradient(transparent, transparent, #0005);
+    border-radius: 10px;
 }
 .container h2{
     color: #666;
