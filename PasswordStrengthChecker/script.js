@@ -1,56 +1,49 @@
-function Strength(password){
-    let i = 0;
-    if(password.length > 6){
-        i++;
-    }
-    if(password.length >= 10){
-        i++;
-    }
-    if(/[A-Z]/.test(password)){
-        i++;
-    }
-    if(/[0-9]/.test(password)){
-        i++;
-    }
-    if(/[A-Za-z0-8]/.test(password)){
-        i++;
-    }
-    return i;
-}
+const criteria = [
+    /[A-Z]/, // At least one uppercase letter
+    /[a-z]/, // At least one lowercase letter
+    /[0-9]/, // At least one digit
+    /[!@#$%^&*()\-_=+{};:,<.>]/, // At least one special character
+    /.{8,}/ // At least 8 characters long
+];
 
-let container = document.querySelector('.container');
-document.addEventListener("keyup", function(e){
-    let password = document.querySelector('#myPassword').value;
+const calculatePasswordStrength = password => {
+    let strength = 0;
+    for (const criterion of criteria) {
+        if (criterion.test(password)) {
+            strength++;
+        }
+    }
+    return strength;
+};
 
-    let strength = Strength(password);
-    if(strength <= 2){
-        container.classList.add('weak');
-        container.classList.remove('medium');
-        container.classList.remove('strong');
-    }
-    else if(strength >= 2 && strength <= 4){
-        container.classList.remove('weak');
-        container.classList.add('medium');
-        container.classList.remove('strong');
-    }
-    else{
-        container.classList.remove('weak');
-        container.classList.remove('medium');
-        container.classList.add('strong');
-    }
-})
+const container = document.querySelector('.container');
+const passwordInput = document.querySelector('#myPassword');
+const passwordInputs = document.querySelectorAll('input[type="password"]');
 
-let pswrd = document.querySelector('#myPassword');
-let show = document.querySelector('.show');
+passwordInputs.forEach(passwordInput => {
+    passwordInput.addEventListener('keydown', () => {
+        const { value } = passwordInput;
+        const strength = calculatePasswordStrength(value);
 
-show.onclick = function(){
-    if(pswrd.type === 'password'){
-        pswrd.setAttribute('type', 'text');
-        show.classList.add('hide');
-    }
+        container.className = 'container';
+        switch (true) {
+            case strength < 3:
+                container.classList.add('weak');
+                break;
+            case strength < 5:
+                container.classList.add('medium');
+                break;
+            default:
+                container.classList.add('strong');
+                break;
+        }
+    });
 
-    else{
-        pswrd.setAttribute('type', 'password');
-        show.classList.remove('hide');
-    }
-}
+    
+    const showHideButton = passwordInput.nextElementSibling;
+    showHideButton.addEventListener('click', () => {
+        const { type } = passwordInput;
+        passwordInput.type = type === 'password' ? 'text' : 'password';
+        showHideButton.classList.toggle('hide');
+    });
+});

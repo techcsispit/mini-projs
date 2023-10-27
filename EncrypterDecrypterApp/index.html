@@ -1,41 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EncrypterDecrypterApp</title>
+    <title>Encrypter-Decrypter App</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+        }
+        .type-method-container {
+            display: flex;
+            align-items: center;
+        }
+        .type-container, .method-container {
+            margin-right: 20px;
+        }
+        select {
+            border-radius: 3px;
+            padding: 3px;
+        }
+    </style>
 </head>
-
 <body>
     <div class="container">
-        <h2>EncrypterDecrypterApp</h2>
-        <textarea id="input" placeholder="Enter your text here..."></textarea>
-
-        <div class="buttons">
-            <button onclick="convert('encode', 'uri')">URL Encode</button>
-            <button onclick="convert('decode', 'uri')">URL Decode</button>
-            <button onclick="convert('encode', 'base64')">Base64 Encode</button>
-            <button onclick="convert('decode', 'base64')">Base64 Decode</button>
-            <button onclick="convert('encode', 'html')">HTML Entity Encode</button>
-            <button onclick="convert('decode', 'html')">HTML Entity Decode</button>
-            <button onclick="convert('encode', 'unicode')">Unicode Escape</button>
-            <button onclick="convert('decode', 'unicode')">Unicode Unescape</button>
-            <button onclick="convert('encode', 'hex')">Hex Encode</button>
-            <button onclick="convert('decode', 'hex')">Hex Decode</button>
-            <button onclick="convert('encode', 'binary')">Binary Encode</button>
-            <button onclick="convert('decode', 'binary')">Binary Decode</button>
+        <h1>Encrypter-Decrypter App</h1>
+        <div class="input-container">
+            <label for="input">Input:</label>
+            <textarea id="input" oninput="convert(document.getElementById('type').value, document.getElementById('method').value)"></textarea>
         </div>
-
-        <textarea id="output" readonly placeholder="Output will appear here..."></textarea>
-         <div class="author">
-        Made by M3hank
+        <div class="output-container">
+            <label for="output">Output:</label>
+            <textarea id="output"></textarea>
+        </div>
+        <div class="options-container">
+            <div class="type-method-container">
+                <div class="type-container">
+                    <label>Type:</label>
+                    <select id="type" onchange="convert(this.value, document.getElementById('method').value)">
+                        <option value="encode">Encode</option>
+                        <option value="decode">Decode</option>
+                    </select>
+                </div>
+                <div class="method-container">
+                    <label>Method:</label>
+                    <select id="method" onchange="convert(document.getElementById('type').value, this.value)">
+                        <option value="uri">URI</option>
+                        <option value="base64">Base64</option>
+                        <option value="html">HTML</option>
+                        <option value="unicode">Unicode</option>
+                        <option value="hex">Hex</option>
+                        <option value="binary">Binary</option>
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
-    </div>
+    <script>
+        if (document.getElementById('input') !== null) {
+            document.getElementById('input').addEventListener('input', function() {
+                convert(document.getElementById('type').value, document.getElementById('method').value);
+            });
+        }
+    </script>
     <script src="scripts.js"></script>
 </body>
-
 </html>
