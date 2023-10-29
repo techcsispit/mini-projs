@@ -12,23 +12,14 @@
     </header>
     <main>
         <div class="search-bar">
-            <input type="text" id="search-input" placeholder="Search for a movie">
+            <input type="text" id="search-input" placeholder="Enter Movie Name">
             <button id="search-button">Search</button>
         </div>
-        <div class="movie-info">
-            <div class="poster">
-                <img id="movie-poster" src="" alt="Movie Poster">
-            </div>
-            <div class="details">
-                <h2 id="movie-title"></h2>
-                <p>Genre: <span id="movie-genre"></span></p>
-                <p>Cast: <span id="movie-cast"></span></p>
-                <p>IMDb Rating: <span id="movie-rating"></span></p>
-                <p>Released Date: <span id="movie-released"></span></p>
-                <p>Director: <span id="movie-director"></span></p>
-            </div>
+        <div id="movieInfo">
+            <div id="poster"></div>
+            <div id="movieInfoText"></div>
         </div>
     </main>
-    <script src="./index.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
