@@ -1,0 +1,16 @@
+**/.DS_Store
+
+# Ignore build artifacts
+build/
+dist/
+*.log
+
+# Ignore configuration files with sensitive data
+config/config.ini
+
+# Ignore package-lock files
+package-lock.json
+
+# Ignore IDE-specific files and directories
+.vscode/
+.idea/

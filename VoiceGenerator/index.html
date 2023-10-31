@@ -4,17 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Voice Generator</title>
 </head>
 <body>
-    <div class="hero">
-        <h1> How to make a voice generator </h1>
-        <textarea placeholder="Write Something Here ..."></textarea>
-        <div class="row">
-        <select name="" id=""></select>
-        <button>Speak</button>  
-        </div>
-        
+    <div class="header"><h1> Text To Speech </h1></div>
+    <div class="app">
+        <div class="text-box"><textarea id="textToSpeak" placeholder="Write Here"></textarea></div>
+        <div class="settings">
+            <h3>Settings</h3>
+            <label for="rate">Rate</label>
+                <input type="range" min="0.5" max="2" value="1" step="0.1" id="rate" />
+                <div class="rate-value" id="rate-value">1</div>
+                <div class="clearfix"></div>
+            <label for="pitch">Pitch</label>
+                <input type="range" min="0" max="2" value="1" step="0.1" id="pitch" />
+                <div class="pitch-value" id="pitch-value">1</div>
+                <div class="clearfix"></div>
+            <label for="volume">Volume</label>
+                <input type="range" min="0" max="1" value="1" step="0.1" id="volume" />
+                <div class="volume-value" id="volume-value">0.5</div>
+                <div class="clearfix"></div>
+            <select class="audio"></select>
+            <div class="buttons">
+                <button id="playButton">Play</button>  
+                <button id="pauseButton">Pause</button>
+                <button id="resumeButton">Resume</button>
+                <button id="stopButton">Stop</button>
+            </div>
+        </div>  
     </div>
     <script src="script.js"></script>
 </body>
